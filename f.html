@@ -1,0 +1,43 @@
+<html>
+<head>
+<script src="adv.civ.tech.js"></script>
+<script type="text/javascript" src="sort.js"></script>
+<script type="text/javascript">
+</script>
+</head>
+<body>
+<table>
+	<thead>
+		<th>Green</th>
+		<th>Blue</th>
+		<th>Yellow</th>
+		<th>Red</th>
+		<th>Orange</th>
+	</thead>
+	<tbody>
+		<td id="green">0</td>
+		<td id="blue">0</td>
+		<td id="yellow">0</td>
+		<td id="red">0</td>
+		<td id="orange">0</td>
+	</tbody>
+</table>
+<table id="techs">
+	<thead>
+		<th onclick="sort.sort(0)">Buy</th>
+		<th onclick="sort.sort(1, sort.numericComparator)">Curr Price</th>
+		<th onclick="sort.sort(2, sort.numericComparator)">Price</th>
+		<th onclick="sort.sort(3)">Name</th>
+		<th onclick="sort.sort(4)">Colors</th>
+		<th onclick="sort.sort(5)">Bonuses</th>
+		<th onclick="sort.sort(6)">spec Bonus</th>
+	</thead>
+	<tbody id="techlist">
+		<tr><td>hej</td></tr>
+	</tbody>
+</body>
+<script>
+Civ.print()
+var sort = new Sort();
+sort.table = document.getElementById('techs')
+</script>
