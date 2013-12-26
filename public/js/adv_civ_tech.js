@@ -78,7 +78,23 @@ Civ.prototype = {
 			tech.curr_price -= t.special_bonus.value
 		}
 		t.bought = true
-		this.print()
+		this.refresh()
+//		this.print()
+	},
+
+	refresh: function() {
+		for(var c in this.colors) {
+			document.getElementById(c).innerHTML = this.colors[c]
+		}
+		for(var name in this.techs) {
+			var curr = document.getElementById(name)
+			var t = this.techs[name]
+			console.log(curr)
+			curr.innerHTML = t.curr_price
+			if(t.bought) {
+				document.getElementById(name + '-buy').innerHTML = 'bought'
+			}
+		}
 	},
 
 	print: function() {
@@ -104,11 +120,13 @@ Civ.prototype = {
 				button.appendChild(document.createTextNode('buy'))
 				addClickHandler(button, t.name)
 			}
+			td.id = name + '-buy'
 			td.appendChild(button)
 			tr.appendChild(td)
 
 			td = document.createElement('td')
 			td.appendChild(document.createTextNode(t.curr_price))
+			td.id = name
 			tr.appendChild(td)
 
 			td = document.createElement('td')
