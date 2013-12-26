@@ -52,6 +52,9 @@ Civ.prototype = {
 
 	buy: function(name) {
 		var t = this.techs[name]
+		if(t.bought) {
+			return null
+		}
 		for(var color in t.bonuses) {
 			this.colors[color] += t.bonuses[color]
 		}
