@@ -15,20 +15,26 @@
 	</tbody>
 </table>
 
-<table id="techs">
-	<thead>
-		<th onclick="sort.sort(0)">Buy</th>
-		<th onclick="sort.sort(1, sort.numericComparator)">Curr Price</th>
-		<th onclick="sort.sort(2, sort.numericComparator)">Price</th>
-		<th onclick="sort.sort(3)">Name</th>
-		<th onclick="sort.sort(4)">Colors</th>
-		<th onclick="sort.sort(5)">Bonuses</th>
-		<th onclick="sort.sort(6)">spec Bonus</th>
-	</thead>
-	<tbody id="techlist">
-		<tr><td>You need javascript for this calculator</td></tr>
-	</tbody>
-</body>
+<form name="techs" onsubmit="civ.purchase(); return false">
+	<input type="submit" value="buy" />
+	<div>Sum: <span id="sum">0</span></div>
+	<table id="techs">
+		<thead>
+			<tr>
+				<th onclick="sort.sort(0)">Buy</th>
+				<th onclick="sort.sort(1, sort.numericComparator)">Curr Price</th>
+				<th onclick="sort.sort(2, sort.numericComparator)">Price</th>
+				<th onclick="sort.sort(3)">Name</th>
+				<th onclick="sort.sort(4)">Colors</th>
+				<th onclick="sort.sort(5)">Bonuses</th>
+				<th onclick="sort.sort(6)">spec Bonus</th>
+			</tr>
+		</thead>
+		<tbody id="techlist">
+			<tr><td>You need javascript for this calculator</td></tr>
+		</tbody>
+	</table>
+</form>
 <script type="text/javascript">
 	window.onload = function () {
 	console.log("printing techs")
@@ -64,4 +70,3 @@
 	var sort = new Sort()
 	sort.table = document.getElementById('techs')
 </script>
-		

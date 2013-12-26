@@ -50,6 +50,34 @@ Civ.prototype = {
 		}
 	},
 
+	cart: function() {
+		var cbs = document.forms["techs"]["buy[]"]
+		var sum = 0
+		for(var i in cbs) {
+			cb = cbs[i]
+			if(cb && cb.checked) {
+				console.log(cb.value)
+				var t = this.techs[cb.value]
+				sum += t.curr_price
+			}
+		}
+		var sum_field = document.getElementById('sum')
+		sum_field.innerHTML = sum
+		console.log('sum: ' + sum)
+	},
+
+	purchase: function() {
+		var cbs = document.forms["techs"]["buy[]"]
+		for(var i in cbs) {
+			cb = cbs[i]
+			if(cb && cb.checked) {
+				console.log("purchase: " + cb.value)
+				this.buy(cb.value)
+			}
+		}
+		this.cart()
+	},
+
 	buy: function(name) {
 		var t = this.techs[name]
 		if(t.bought) {
@@ -89,7 +117,6 @@ Civ.prototype = {
 		for(var name in this.techs) {
 			var curr = document.getElementById(name)
 			var t = this.techs[name]
-			console.log(curr)
 			curr.innerHTML = t.curr_price
 			if(t.bought) {
 				document.getElementById(name + '-buy').innerHTML = 'bought'
@@ -116,9 +143,13 @@ Civ.prototype = {
 			if(t.bought) {
 				button = document.createTextNode('bought')
 			} else {
-				button = document.createElement('button')
-				button.appendChild(document.createTextNode('buy'))
-				addClickHandler(button, t.name)
+				button = document.createElement('input')
+				button.type = 'checkbox'
+				button.name = 'buy[]'
+				button.value = t.name
+				button.addEventListener('change', function() {
+					civ.cart()
+				})
 			}
 			td.id = name + '-buy'
 			td.appendChild(button)
