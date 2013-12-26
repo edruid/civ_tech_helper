@@ -1,3 +1,7 @@
+<div>
+		<button type="button" onclick="civ.save()">Save</button>
+		<button type="button" onclick="civ.load()">Load</button>
+</div>
 <table>
 	<thead>
 		<tr>

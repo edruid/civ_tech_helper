@@ -23,6 +23,24 @@ Civ.prototype = {
 	},
 	special_bonuses: {},
 
+	save: function() {
+		localStorage.civ = JSON.stringify({
+			techs: this.techs,
+			colors: this.colors
+		})
+		console.log('Saved')
+	},
+
+	load: function() {
+		data = JSON.parse(localStorage.civ)
+		if(data) {
+			this.techs = data.techs
+			this.colors = data.colors
+		}
+		this.print()
+		console.log('Loaded')
+	},
+
 	add_tech: function(price, cols, name, bonuses, special_bonus) {
 		var tech = {
 			price: price,
