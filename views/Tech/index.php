@@ -2,10 +2,17 @@
 	<thead>
 		<tr>
 			<?php foreach($colors as $color): ?>
-				<th><?= $color ?></th>
+				<th style="background-color: <?=$color?>"><?= $color ?></th>
 			<?php endforeach ?>
 		</tr>
 	</thead>
+	<tbody>
+		<tr>
+			<?php foreach($colors as $color): ?>
+				<td id="<?=$color?>"></td>
+			<?php endforeach ?>
+		</tr>
+	</tbody>
 </table>
 
 <table id="techs">
@@ -19,25 +26,29 @@
 		<th onclick="sort.sort(6)">spec Bonus</th>
 	</thead>
 	<tbody id="techlist">
-		<tr><td>hej</td></tr>
+		<tr><td>You need javascript for this calculator</td></tr>
 	</tbody>
 </body>
-<script>
+<script type="text/javascript">
+	window.onload = function () {
+	console.log("printing techs")
 	<?php foreach($techs as $tech): ?>
-		Civ.add_tech(
+		civ.add_tech(
 			<?= $tech->cost ?>,
 			[
 				<?php foreach($tech->TechColor as $color): ?>
-					<?= $color ?>,
+					'<?= $color ?>',
 				<?php endforeach ?>
 			],
-			'<?= $tech->name ?>',
+			'<?= $tech->tech ?>',
 			{
 				<?php foreach($tech->ColorBonus as $color): ?>
 					'<?= $color->color ?>': <?= $color->bonus ?>,
 				<?php endforeach ?>
 			},
-			<?php if($bonus = $tech->SpecificBonus): ?>
+			<?php $bonus = $tech->SpecificBonus ?>
+			<?php if(count($bonus) > 0): ?>
+				<?php $bonus = $bonus[0] ?>
 				{
 					value: <?= $bonus->bonus ?>,
 					name: '<?= $bonus->other ?>'
@@ -47,9 +58,10 @@
 			<?php endif ?>
 		)
 	<?php endforeach ?>
+	civ.print()
+	}
 		
-	Civ.print()
-	var sort = new Sort();
+	var sort = new Sort()
 	sort.table = document.getElementById('techs')
 </script>
 		

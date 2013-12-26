@@ -10,15 +10,9 @@ $main=array_shift($request);
 if($main == '') {
 	$main = $application['default_content'];
 }
-$session = Session::from_id(session_id());
-if($session != null) {
-	$current_user = $session->User;
-} else {
-	$current_user = null;
-}
 $page = $main.'C';
 if(!class_exists($page)) {
 	die("$main does not exist");
 }
-$page::_layout($main.'/'.array_shift($request), $request);
+$page::_declare($main.'/'.array_shift($request), $request);
 ?>

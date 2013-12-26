@@ -46,6 +46,6 @@ function __autoload($class)
 /**
  * Klasser som behöver instantieras till en global.
  */
-$db = new PDO('pgsql:localhost:5432:adv_civ');
-//$db = new ("adv_civ", true);
+//$db = new PDO('pgsql:localhost:5432:adv_civ');
+$db = new DatabaseConnectioni("civ", true);
 ?>

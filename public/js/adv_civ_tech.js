@@ -1,9 +1,11 @@
 function addClickHandler(elem, name) {
 	elem.addEventListener('click', function(e) {
-		Civ.buy(name)
+		civ.buy(name)
 	}, false);
 }
-var Civ = {
+Civ = function() {
+}
+Civ.prototype = {
 	techs: {},
 	color_cards: {
 		'green': new Array(),
@@ -22,7 +24,7 @@ var Civ = {
 	special_bonuses: {},
 
 	add_tech: function(price, cols, name, bonuses, special_bonus) {
-		tech = {
+		var tech = {
 			price: price,
 			curr_price: price,
 			spec_bonus: 0,
@@ -115,13 +117,23 @@ var Civ = {
 			tr.appendChild(td)
 
 			td = document.createElement('td')
-			td.appendChild(document.createTextNode(t.colors.join(', ')))
+			for(var k in t.colors) {
+				var span = document.createElement('span')
+				span.style = 'margin: 2px; background-color: ' + t.colors[k]
+				span.title = t.colors[k]
+				span.appendChild(document.createTextNode(t.colors[k][0]))
+				td.appendChild(span)
+			}
 			tr.appendChild(td)
 
 			td = document.createElement('td')
 			var bonus = []
 			for(var k in t.bonuses) {
-				bonus.push(k + ': ' + t.bonuses[k])
+				var span = document.createElement('span')
+				span.style = 'margin: 2px; background-color: ' + k
+				span.title = k
+				span.appendChild(document.createTextNode(k[0]+t.bonuses[k]+' '))
+				td.appendChild(span)
 			}
 			td.appendChild(document.createTextNode(bonus.join(', ')))
 			tr.appendChild(td)
@@ -138,6 +150,7 @@ var Civ = {
 		}
 	}
 }
+civ = new Civ()
 /*Civ.add_tech( 60, ['orange'],           'Masonry'            , {'green':  5,                                      'orange': 10}, { value: 10, name: 'Engeneering'})
 Civ.add_tech( 50, ['orange'],           'Cloth Making'       , {             'blue':  5,                          'orange': 10}, { value: 10, name: 'Naval warfare'})
 Civ.add_tech( 60, ['orange'],           'Pottery'            , {             'blue':  5,                          'orange': 10}, { value: 10, name: 'Agriculture'})

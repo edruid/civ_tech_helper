@@ -1,64 +1,66 @@
+begin;
+
 create table techs (
-	tech        varchar(128) not null,
+	tech        text not null,
 	description text,
 	cost        int,
 	primary key (tech)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table colors (
-	color       varchar(128) not null,
+	color       text not null,
 	primary key (color)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table tech_colors (
-	tech        varchar(128) not null,
-	color       varchar(128) not null,
+	tech        text not null,
+	color       text not null,
 	primary key (tech, color),
 	foreign key (tech) references techs (tech),
 	foreign key (color) references colors (color)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table color_bonuses (
-	tech        varchar(128) not null,
-	color       varchar(128) not null,
+	tech        text not null,
+	color       text not null,
 	bonus       int not null,
 	primary key (tech, color),
 	foreign key (tech) references techs (tech),
 	foreign key (color) references colors (color)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table specific_bonuses (
-	tech        varchar(128) not null,
-	other       varchar(128) not null,
+	tech        text not null,
+	other       text not null,
 	bonus       int not null,
 	primary key (tech),
 	foreign key (tech) references techs (tech),
 	foreign key (other) references techs (tech)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table calamity_types (
-	type        varchar(128) not null,
+	type        text not null,
 	primary key (type)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table calamities (
-	calamity    varchar(128) not null,
+	calamity    text not null,
 	description text not null,
 	number      int not null,
-	type        varchar(128) not null,
+	type        text not null,
 	primary key (calamity),
 	foreign key (type) references calamity_types (type)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 create table calamity_effects (
-	tech        varchar(128) not null,
-	calamity    varchar(128) not null,
+	tech        text not null,
+	calamity    text not null,
 	description text,
-	type        varchar(128) not null,
+	type        text not null,
 	primary key (tech, calamity),
 	foreign key (calamity) references calamities (calamity),
 	foreign key (tech) references techs (tech)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_swedish_ci;
+);
 
 insert into colors (color) values
 	('red'), ('green'), ('orange'), ('blue'), ('yellow');
@@ -329,3 +331,5 @@ insert into specific_bonuses (tech, bonus, other) values
 	('Diplomacy'          , 20, 'Provincial Empire'),
 	('Law'                , 20, 'Cultural Ascendancy'),
 	('Military'           , 20, 'Advanced Military');
+
+commit;
