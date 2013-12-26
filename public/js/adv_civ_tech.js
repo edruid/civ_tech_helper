@@ -171,7 +171,8 @@ Civ.prototype = {
 			td = document.createElement('td')
 			for(var k in t.colors) {
 				var span = document.createElement('span')
-				span.style = 'margin: 2px; background-color: ' + t.colors[k]
+				span.style.backgroundColor = t.colors[k]
+				span.style.margin = "2px"
 				span.title = t.colors[k]
 				span.appendChild(document.createTextNode(t.colors[k][0]))
 				td.appendChild(span)
@@ -182,9 +183,10 @@ Civ.prototype = {
 			var bonus = []
 			for(var k in t.bonuses) {
 				var span = document.createElement('span')
-				span.style = 'margin: 2px; background-color: ' + k
+				span.style.backgroundColor = k
+				span.style.margin = "2px"
 				span.title = k
-				span.appendChild(document.createTextNode(k[0]+t.bonuses[k]+' '))
+				span.appendChild(document.createTextNode(k[0]+t.bonuses[k]))
 				td.appendChild(span)
 			}
 			td.appendChild(document.createTextNode(bonus.join(', ')))
