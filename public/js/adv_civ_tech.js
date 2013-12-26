@@ -75,6 +75,7 @@ Civ.prototype = {
 				this.buy(cb.value)
 			}
 		}
+		this.refresh()
 		this.cart()
 	},
 
@@ -106,8 +107,6 @@ Civ.prototype = {
 			tech.curr_price -= t.special_bonus.value
 		}
 		t.bought = true
-		this.refresh()
-//		this.print()
 	},
 
 	refresh: function() {
