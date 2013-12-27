@@ -6,7 +6,7 @@
 	<thead>
 		<tr>
 			<?php foreach($colors as $color): ?>
-				<th style="background-color: <?=$color?>"><?= $color ?></th>
+				<th colspan="2" style="background-color: <?=$color?>"><?= $color ?></th>
 			<?php endforeach ?>
 		</tr>
 	</thead>
@@ -14,6 +14,12 @@
 		<tr>
 			<?php foreach($colors as $color): ?>
 				<td id="<?=$color?>"></td>
+				<td>
+					(<input type="text" size="1" id="extra-<?=$color?>"
+						value="0"
+						onchange="civ.updateColorExtra('<?=$color?>', this.value)"
+					/>)
+				</td>
 			<?php endforeach ?>
 		</tr>
 	</tbody>

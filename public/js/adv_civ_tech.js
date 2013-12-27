@@ -21,12 +21,20 @@ Civ.prototype = {
 		'red': 0,
 		'orange': 0
 	},
+	colorsExtra: {
+		'green': 0,
+		'blue': 0,
+		'yellow': 0,
+		'red': 0,
+		'orange': 0
+	},
 	special_bonuses: {},
 
 	save: function() {
 		localStorage.civ = JSON.stringify({
 			techs: this.techs,
-			colors: this.colors
+			colors: this.colors,
+			colorsExtra: this.colorsExtra
 		})
 		console.log('Saved')
 	},
@@ -36,6 +44,11 @@ Civ.prototype = {
 		if(data) {
 			this.techs = data.techs
 			this.colors = data.colors
+			this.colorsExtra = data.colorsExtra
+		}
+		for(var color in this.colorsExtra) {
+			var input = document.getElementById('extra-' + color)
+			input.value = this.colorsExtra[color]
 		}
 		this.print()
 		console.log('Loaded')
@@ -92,6 +105,27 @@ Civ.prototype = {
 				console.log("purchase: " + cb.value)
 				this.buy(cb.value)
 			}
+		}
+		this.refresh()
+		this.cart()
+	},
+
+	updateColorExtra: function(color, newValue) {
+		var old = this.colorsExtra[color]
+		if(old == newValue) {
+			return null
+		}
+		this.colorsExtra[color] = newValue
+		console.log("changing " + color + " extra from " + old + " to " + newValue)
+		this.colors[color] += newValue - old
+		for(var i in this.color_cards[color]) {
+			var name = this.color_cards[color][i]
+			tech = this.techs[name]
+			var b = 0
+			for(var i in tech.colors) {
+				b = Math.max(b, this.colors[tech.colors[i]])
+			}
+			this.techs[name].curr_price = tech.price - b - tech.spec_bonus
 		}
 		this.refresh()
 		this.cart()
